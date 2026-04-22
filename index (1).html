@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLAIZZ — Le fruit devient bonbon.</title>
+  <meta name="description" content="PLAIZZ, les gummies healthy qui font du bien. Moins de sucre, ingrédients naturels, textures premium. Rejoins la liste d'attente !" />
+  <!-- Open Graph (pour les aperçus sur réseaux sociaux) -->
+  <meta property="og:title" content="PLAIZZ — Le fruit devient bonbon." />
+  <meta property="og:description" content="Les bonbons qui font du bien. Moins de sucre, 100% naturel. Sois parmi les premiers à y goûter." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://i.imgur.com/placeholder.png" /><!-- ← remplace par ton image -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:      #feffe4;
+      --green-lt:   #c7ee96;
+      --green-dk:   #368162;
+      --green-mid:  #4a9e76;
+      --white:      #ffffff;
+      --dark:       #1a2e1f;
+      --shadow:     rgba(54, 129, 98, 0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ─── FLOATING GUMMIES BACKGROUND ──────────────── */
+    .gummies-bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .gummy {
+      position: absolute;
+      border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+      opacity: 0.12;
+      animation: floatG linear infinite;
+    }
+    .g1  { width:60px;  height:70px;  background:var(--green-dk); left:5%;   top:10%; animation-duration:14s; animation-delay:0s; }
+    .g2  { width:45px;  height:52px;  background:#e8744a;         left:88%;  top:8%;  animation-duration:17s; animation-delay:-4s; }
+    .g3  { width:55px;  height:62px;  background:#f0b94a;         left:22%;  top:60%; animation-duration:12s; animation-delay:-2s; }
+    .g4  { width:40px;  height:46px;  background:var(--green-lt); left:70%;  top:55%; animation-duration:19s; animation-delay:-7s; }
+    .g5  { width:65px;  height:75px;  background:#c44a4a;         left:45%;  top:20%; animation-duration:15s; animation-delay:-9s; }
+    .g6  { width:35px;  height:40px;  background:#f0b94a;         left:13%;  top:80%; animation-duration:22s; animation-delay:-3s; }
+    .g7  { width:50px;  height:58px;  background:var(--green-dk); left:78%;  top:78%; animation-duration:16s; animation-delay:-11s; }
+    .g8  { width:42px;  height:50px;  background:#e8744a;         left:55%;  top:88%; animation-duration:20s; animation-delay:-5s; }
+
+    @keyframes floatG {
+      0%   { transform: translateY(0)    rotate(0deg); }
+      50%  { transform: translateY(-30px) rotate(12deg); }
+      100% { transform: translateY(0)    rotate(0deg); }
+    }
+
+    /* ─── CANDY RAIN (falling candies) ─────────────────
+       Candies fall only in the left and right side "gutters"
+       so the central reading column stays untouched. */
+    .candy-rain {
+      position: fixed; inset: 0; z-index: 2;
+      pointer-events: none; overflow: hidden;
+    }
+    .candy {
+      position: absolute;
+      top: -14vh;
+      width: 56px; height: auto;
+      filter: drop-shadow(0 6px 10px rgba(54,129,98,0.22));
+      animation-name: candyFall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      will-change: transform;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    @keyframes candyFall {
+      0%   { transform: translate3d(0, -20vh, 0) rotate(0deg); opacity: 0; }
+      10%  { opacity: 0.95; }
+      50%  { transform: translate3d(18px, 55vh, 0) rotate(180deg); }
+      90%  { opacity: 0.95; }
+      100% { transform: translate3d(-12px, 118vh, 0) rotate(360deg); opacity: 0; }
+    }
+    @media (max-width: 640px) {
+      .candy { width: 38px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .candy-rain { display: none; }
+    }
+
+    /* ─── NOISE TEXTURE ─────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 18px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(254,255,228,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 2px solid rgba(199,238,150,0.4);
+    }
+    .logo-text {
+      font-family: 'Chewy', cursive;
+      font-size: 2rem;
+      color: var(--green-dk);
+      letter-spacing: 1px;
+      text-shadow: 3px 3px 0 var(--cream), 4px 4px 0 rgba(54,129,98,0.2);
+      text-decoration: none;
+    }
+    .nav-badge {
+      background: var(--green-dk);
+      color: var(--cream);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 999px;
+    }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 140px 24px 80px;
+      background: linear-gradient(170deg, var(--cream) 0%, #e8fad0 60%, var(--cream) 100%);
+    }
+
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white);
+      border: 2px solid var(--green-lt);
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green-dk);
+      margin-bottom: 28px;
+      animation: fadeUp 0.5s ease both;
+    }
+    .blink { width: 8px; height: 8px; background: var(--green-dk); border-radius: 50%; animation: blink 1.4s ease infinite; }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+    .hero-title {
+      font-family: 'Chewy', cursive;
+      font-size: clamp(4rem, 12vw, 9rem);
+      line-height: 0.9;
+      color: var(--green-dk);
+      letter-spacing: 2px;
+      /* Sticker effect */
+      -webkit-text-stroke: 10px var(--cream);
+      paint-order: stroke fill;
+      filter: drop-shadow(0 6px 0 rgba(54,129,98,0.25));
+      animation: fadeUp 0.5s 0.08s ease both;
+      position: relative;
+    }
+
+    .hero-tagline {
+      font-family: 'Chewy', cursive;
+      font-size: clamp(1.2rem, 3.5vw, 2rem);
+      color: var(--green-dk);
+      margin-top: 8px;
+      letter-spacing: 1px;
+      animation: fadeUp 0.5s 0.14s ease both;
+    }
+
+    .hero-sub {
+      max-width: 500px;
+      margin: 24px auto 0;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.7;
+      color: #4a6b52;
+      animation: fadeUp 0.5s 0.2s ease both;
+    }
+
+    /* ─── FLAVOUR PILLS ─────────────────────────────── */
+    .flavours {
+      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+      margin: 32px auto 0;
+      animation: fadeUp 0.5s 0.26s ease both;
+    }
+    .pill {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white);
+      border: 2px solid var(--green-lt);
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--dark);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .pill:hover { transform: translateY(-4px) rotate(-1deg); box-shadow: 0 8px 20px var(--shadow); }
+    .pill-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+    /* ─── EMAIL FORM ─────────────────────────────────── */
+    .form-wrap {
+      margin-top: 40px;
+      width: 100%; max-width: 500px;
+      animation: fadeUp 0.5s 0.32s ease both;
+    }
+    .form-row {
+      display: flex;
+      background: var(--white);
+      border: 3px solid var(--green-lt);
+      border-radius: 999px;
+      padding: 6px 6px 6px 22px;
+      box-shadow: 0 6px 30px var(--shadow);
+      transition: border-color 0.3s;
+    }
+    .form-row:focus-within { border-color: var(--green-dk); }
+    .form-row input {
+      flex: 1; border: none; outline: none; background: transparent;
+      font-family: 'Nunito', sans-serif; font-size: 0.95rem; color: var(--dark);
+    }
+    .form-row input::placeholder { color: #aac4ae; }
+    .btn-submit {
+      cursor: pointer;
+      background: var(--green-dk);
+      color: var(--cream);
+      border: none; border-radius: 999px;
+      padding: 13px 26px;
+      font-family: 'Chewy', cursive;
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .btn-submit:hover {
+      background: var(--green-mid);
+      transform: scale(1.05);
+      box-shadow: 0 4px 18px rgba(54,129,98,0.35);
+    }
+    .form-note { font-size: 0.75rem; color: #8aad8f; margin-top: 10px; text-align: center; font-weight: 600; }
+
+    .success-msg {
+      display: none;
+      align-items: center; justify-content: center; gap: 10px;
+      background: var(--white);
+      border: 3px solid var(--green-dk);
+      border-radius: 20px;
+      padding: 18px 28px;
+      font-weight: 700;
+      color: var(--green-dk);
+      font-size: 1rem;
+    }
+    .success-msg.show { display: flex; animation: pop 0.4s ease; }
+    @keyframes pop { from{transform:scale(0.85);opacity:0;} to{transform:scale(1);opacity:1;} }
+
+    /* ─── STATS ──────────────────────────────────────── */
+    .stats {
+      display: flex; gap: 0; justify-content: center;
+      margin-top: 48px;
+      animation: fadeUp 0.5s 0.38s ease both;
+    }
+    .stat {
+      text-align: center;
+      padding: 0 32px;
+      border-right: 2px solid rgba(199,238,150,0.6);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Chewy', cursive;
+      font-size: 2.4rem;
+      color: var(--green-dk);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: #8aad8f; margin-top: 4px;
+    }
+
+    /* ─── SECTION SHARED ─────────────────────────────── */
+    .section { position: relative; z-index: 1; padding: 100px 24px; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+    .s-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green-dk); margin-bottom: 10px; }
+    .s-title {
+      font-family: 'Chewy', cursive;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: var(--dark); letter-spacing: 1px; line-height: 1.1;
+      margin-bottom: 56px;
+    }
+
+    /* ─── WHY CARDS ──────────────────────────────────── */
+    .why-section { background: var(--green-dk); }
+    .why-section .s-label { color: var(--green-lt); }
+    .why-section .s-title { color: var(--cream); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: rgba(254,255,228,0.1);
+      border: 2px solid rgba(199,238,150,0.25);
+      border-radius: 24px; padding: 32px 28px;
+      transition: transform 0.25s, background 0.25s;
+    }
+    .card:hover { transform: translateY(-8px) rotate(-0.5deg); background: rgba(254,255,228,0.16); }
+    .card-icon { font-size: 2.4rem; margin-bottom: 18px; }
+    .card h3 { font-family: 'Chewy', cursive; font-size: 1.4rem; color: var(--green-lt); letter-spacing: 1px; margin-bottom: 10px; }
+    .card p { font-size: 0.9rem; font-weight: 500; line-height: 1.65; color: rgba(254,255,228,0.75); }
+
+    /* ─── FLAVOURS SHOWCASE ──────────────────────────── */
+    .flavours-section { background: var(--green-lt); }
+    .flavours-section .s-title { color: var(--green-dk); }
+    .flavours-section .s-label { color: var(--green-dk); }
+
+    .flavour-cards { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .fc {
+      width: 200px;
+      background: var(--white);
+      border-radius: 28px;
+      padding: 36px 20px 28px;
+      text-align: center;
+      border: 3px solid transparent;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 20px rgba(54,129,98,0.1);
+    }
+    .fc:hover { transform: rotate(-2deg) scale(1.06); box-shadow: 0 12px 36px rgba(54,129,98,0.2); }
+    .fc::before { content:''; position:absolute; top:0; left:0; right:0; height:7px; border-radius:4px 4px 0 0; }
+    .fc-mango::before { background: #f0843a; }
+    .fc-lemon::before { background: #e8d040; }
+    .fc-straw::before { background: #e84048; }
+    .fc-emoji { font-size: 3rem; margin-bottom: 14px; display: block; }
+    .fc-name { font-family: 'Chewy', cursive; font-size: 1.15rem; color: var(--green-dk); letter-spacing: 1px; }
+    .fc-sub { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #8aad8f; margin-top: 6px; display: block; }
+    .fc-tag {
+      display: inline-block; margin-top: 12px;
+      background: var(--cream);
+      color: var(--green-dk);
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 999px;
+    }
+
+    /* ─── CTA BOTTOM ─────────────────────────────────── */
+    .cta-section { background: var(--cream); }
+    .cta-box {
+      background: var(--green-dk);
+      border-radius: 36px;
+      padding: 72px 56px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-box::before {
+      content: 'PLAIZZ';
+      position: absolute; bottom: -30px; right: -20px;
+      font-family: 'Chewy', cursive; font-size: 11rem; letter-spacing: 4px;
+      color: rgba(255,255,255,0.05); pointer-events: none; line-height: 1;
+    }
+    .cta-box h2 {
+      font-family: 'Chewy', cursive;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      color: var(--cream); letter-spacing: 2px; margin-bottom: 12px;
+    }
+    .cta-box h2 span { color: var(--green-lt); }
+    .cta-box p { color: rgba(254,255,228,0.65); font-weight: 500; margin-bottom: 36px; line-height: 1.6; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .form-dark {
+      display: flex; max-width: 440px; margin: 0 auto;
+      background: rgba(254,255,228,0.1);
+      border: 2.5px solid rgba(199,238,150,0.35);
+      border-radius: 999px; padding: 6px 6px 6px 22px;
+      transition: border-color 0.3s;
+    }
+    .form-dark:focus-within { border-color: var(--green-lt); }
+    .form-dark input { flex:1; border:none; outline:none; background:transparent; font-family:'Nunito',sans-serif; font-size:0.95rem; color:var(--cream); }
+    .form-dark input::placeholder { color:rgba(254,255,228,0.4); }
+    .btn-dark {
+      cursor: pointer;
+      background: var(--green-lt); color: var(--green-dk); border:none;
+      border-radius: 999px; padding: 13px 24px;
+      font-family: 'Chewy', cursive; font-size: 1.05rem; letter-spacing: 1px;
+      transition: background 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .btn-dark:hover { background: var(--cream); transform: scale(1.05); }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      position: relative; z-index: 1;
+      background: var(--dark);
+      text-align: center;
+      padding: 36px 24px;
+      color: rgba(199,238,150,0.5);
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 1px;
+    }
+    footer strong { color: var(--green-lt); font-family: 'Chewy', cursive; font-size: 1rem; letter-spacing: 2px; }
+
+    /* ─── ANIMATIONS ─────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(28px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .reveal { opacity:0; transform:translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 640px) {
+      nav { padding: 16px 20px; }
+      .hero-title { -webkit-text-stroke: 6px var(--cream); }
+      .stats { gap: 0; }
+      .stat { padding: 0 16px; }
+      .cta-box { padding: 44px 24px; }
+      .form-row, .form-dark { flex-direction: column; border-radius: 20px; padding: 14px; gap: 10px; }
+      .form-row input, .form-dark input { padding: 6px 0; }
+      .btn-submit, .btn-dark { border-radius: 14px; width:100%; }
+    }
+  </style>
+<script type='text/javascript' src='https://api.netlify.com/M0bS-I9pKbhC77uCEJFFSq9239HGFX388Seh70WBHLURfF-52echB1nDIprIiBUcBPQHXpdznihZW4n5DUjVGOwwi4M8SOl4ADZRLkGyve4ywjHjVmMFTRHeso1KVEXEkKakJghnykbWeOCU5YZKw5F5DWPvs1f8iOtKprQ6lqT-MY3gGOSlXqKiKXJhqZW_9ttotooxa_6kMC-Upz_k5rJMrMLAAZgxZn_n0xr1uJvGArDbhTC8hbEC8RsNCiqnUemjtDim4b_IxB5xhi5iT-hnPPojap0HGbbwk8ub1pVXNTRjsLtA94Fr0H1aLXlbi9leeSCbymVx2K6yATl1ow_c_dTWXHJrpTCei5UQ0cyfQNToBBXzSRNDNlN_2gbgz5e0XFeXj3z-x7rV99UZHD4Gm3uhP50PEuM_S0eCC3bXimmPM2ZuX7D872eAPVbUXY5cTEzKIiUaKafdCHkzKZk-JI6wx94JB_sNa9I7DZyq8WHpclspWoW0ez705GNxrqdN_pJ4PCLTBr1qyfFV'></script></head>
+<body>
+
+  <!-- Floating gummy shapes -->
+  <div class="gummies-bg">
+    <div class="gummy g1"></div><div class="gummy g2"></div>
+    <div class="gummy g3"></div><div class="gummy g4"></div>
+    <div class="gummy g5"></div><div class="gummy g6"></div>
+    <div class="gummy g7"></div><div class="gummy g8"></div>
+  </div>
+
+  <!-- Falling candies animation -->
+  <div class="candy-rain" id="candyRain" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="logo-text" href="#">PLAIZZ</a>
+    <span class="nav-badge">Lancement imminent 🍬</span>
+  </nav>
+
+  <!-- ── HERO ──────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-label"><span class="blink"></span> Bientôt disponible</div>
+
+    <h1 class="hero-title">PLAIZZ</h1>
+    <p class="hero-tagline">Le fruit devient bonbon.</p>
+
+    <p class="hero-sub">
+      Des gummies chewy, moins sucrés et aux ingrédients naturels.
+      Le plaisir intelligent — sans se priver de rien.
+    </p>
+
+    <div class="flavours">
+      <div class="pill"><span class="pill-dot" style="background:#f0843a"></span> Mangue & Passion</div>
+      <div class="pill"><span class="pill-dot" style="background:#e8d040"></span> Citron</div>
+      <div class="pill"><span class="pill-dot" style="background:#e84048"></span> Fraise</div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-wrap">
+      <div class="form-row" id="formHero">
+        <input type="email" id="emailHero" placeholder="ton@email.com" />
+        <button class="btn-submit" onclick="submitEmail('emailHero','formHero','successHero')">Je veux goûter →</button>
+      </div>
+      <div class="success-msg" id="successHero">
+        🍬 Yes ! On te contacte en avant-première.
+      </div>
+      <p class="form-note">🔒 Pas de spam. Juste les news PLAIZZ qui comptent.</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num" id="cntMain">0</div>
+        <div class="stat-label">inscrits</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">saveurs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">naturel</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY PLAIZZ ─────────────────────────────────────── -->
+  <section class="section why-section">
+    <div class="section-inner">
+      <p class="s-label reveal">Pourquoi PLAIZZ ?</p>
+      <h2 class="s-title reveal">C'est bonbon<br/>pour la santé.</h2>
+      <div class="cards">
+        <div class="card reveal">
+          <div class="card-icon">🌿</div>
+          <h3>100% Naturel</h3>
+          <p>Pas de colorants artificiels. Les couleurs et les arômes viennent directement des fruits — comme c'était censé l'être.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">💚</div>
+          <h3>Moins de sucre</h3>
+          <p>On réduit le sucre au max sans sacrifier le goût ni la texture. Tu te fais plaisir, sans excès.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">✨</div>
+          <h3>Texture premium</h3>
+          <p>Un équilibre parfait entre pectine et gélatine pour un chewy incomparable — addictif, mais le bon genre.</p>
+        </div>
+        <div class="card reveal">
+          <div class="card-icon">🌱</div>
+          <h3>Options vegan</h3>
+          <p>Une gamme 100% végétale disponible pour profiter du plaisir PLAIZZ en accord avec ses valeurs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FLAVOURS ───────────────────────────────────────── -->
+  <section class="section flavours-section">
+    <div class="section-inner" style="text-align:center">
+      <p class="s-label reveal">Au lancement</p>
+      <h2 class="s-title reveal">Trois saveurs<br/>pour commencer</h2>
+      <div class="flavour-cards">
+        <div class="fc fc-mango reveal">
+          <span class="fc-emoji">🥭</span>
+          <span class="fc-name">Mangue & Passion</span>
+          <span class="fc-sub">Tropical</span>
+          <span class="fc-tag">Exotique & Fruité</span>
+        </div>
+        <div class="fc fc-lemon reveal">
+          <span class="fc-emoji">🍋</span>
+          <span class="fc-name">Citron</span>
+          <span class="fc-sub">Acidulé</span>
+          <span class="fc-tag">Frais & Pétillant</span>
+        </div>
+        <div class="fc fc-straw reveal">
+          <span class="fc-emoji">🍓</span>
+          <span class="fc-name">Fraise</span>
+          <span class="fc-sub">Classique</span>
+          <span class="fc-tag">Doux & Gourmand</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA FINAL ──────────────────────────────────────── -->
+  <section class="section cta-section">
+    <div class="section-inner">
+      <div class="cta-box reveal">
+        <h2>Sois là <span>dès le premier sachet</span></h2>
+        <p>Rejoins la liste d'attente et reçois une offre exclusive early adopter avant que tout le monde en parle.</p>
+        <div class="form-dark" id="formBottom">
+          <input type="email" id="emailBottom" placeholder="ton@email.com" />
+          <button class="btn-dark" onclick="submitEmail('emailBottom','formBottom','successBottom')">Rejoindre →</button>
+        </div>
+        <div class="success-msg" id="successBottom" style="margin-top:14px; background:rgba(199,238,150,0.15); border-color:var(--green-lt); color:var(--cream);">
+          🎉 Parfait, ta place est réservée !
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <strong>PLAIZZ</strong><br/>
+    <span style="margin-top:6px;display:block">© 2025 — Le plaisir intelligent. Tous droits réservés.</span>
+  </footer>
+
+  <script>
+    /* ─── CANDY RAIN ─
+       Real candy gummies drift down only in the left/right side gutters
+       so the central reading column stays fully legible. */
+    const CANDY_IMAGES = [
+      'assets/candies/candy-red.png',
+      'assets/candies/candy-orange.png',
+      'assets/candies/candy-yellow.png'
+    ];
+    (function spawnCandies() {
+      const rain = document.getElementById('candyRain');
+      if (!rain) return;
+      const isMobile = window.innerWidth < 640;
+      const count = isMobile ? 10 : 16;
+      // Horizontal side channels — everything between these stays empty.
+      const bandMax = isMobile ? 12 : 15;  // % of viewport on each edge
+      const minSize = isMobile ? 28 : 44;
+      const maxSize = isMobile ? 48 : 78;
+      for (let i = 0; i < count; i++) {
+        const c = document.createElement('img');
+        c.className = 'candy';
+        c.src = CANDY_IMAGES[i % CANDY_IMAGES.length];
+        c.alt = '';
+        c.decoding = 'async';
+        c.loading = 'lazy';
+        const onLeft = i % 2 === 0;
+        const pos = Math.random() * bandMax;                 // 0 → bandMax %
+        c.style.left = onLeft ? pos + '%' : (100 - bandMax + pos) + '%';
+        c.style.width = (minSize + Math.random() * (maxSize - minSize)).toFixed(0) + 'px';
+        c.style.animationDuration = (11 + Math.random() * 9).toFixed(2) + 's';
+        c.style.animationDelay = (-Math.random() * 16).toFixed(2) + 's';
+        c.style.opacity = (0.88 + Math.random() * 0.12).toFixed(2);
+        rain.appendChild(c);
+      }
+    })();
+
+    /* ─── INTERSECTION OBSERVER ─ */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    /* ─── COUNTER ─ */
+    const STORAGE_KEY = 'plaizz_count';
+    let count = parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+
+    function animateNum(el, from, to, ms = 900) {
+      const start = performance.now();
+      const step = ts => {
+        const p = Math.min((ts - start) / ms, 1);
+        el.textContent = Math.round(from + (to - from) * p);
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+
+    function setCounter(n) {
+      document.getElementById('cntMain').textContent = n;
+    }
+    setCounter(count);
+
+    /* ─── GOOGLE SHEETS CONFIG ─ */
+    // ⚠️  Remplace cette URL par ton URL Apps Script après déploiement
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwT8kkQLFIksRw1R_fDyV-OP4yoAOXJbJemVD-N0lEvrX2rdEn8ZFGVtyEuMJg-k5Ir/exec';
+
+    /* ─── EMAIL SUBMIT ─ */
+    async function submitEmail(inputId, formId, successId) {
+      const input = document.getElementById(inputId);
+      const val   = input.value.trim();
+      const re    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!re.test(val)) {
+        input.style.outline = '2px solid #e84048';
+        input.focus();
+        setTimeout(() => input.style.outline = '', 1200);
+        return;
+      }
+
+      // Désactive le bouton pendant l'envoi
+      const btn = document.querySelector('#' + formId + ' button');
+      if (btn) { btn.disabled = true; btn.textContent = '⏳ Envoi…'; }
+
+      // Envoi vers Google Sheets
+      try {
+        await fetch(APPS_SCRIPT_URL + '?email=' + encodeURIComponent(val) + '&source=landing-page', {
+          method: 'GET',
+          mode: 'no-cors' // nécessaire pour Apps Script
+        });
+      } catch (err) {
+        console.warn('[PLAIZZ] Erreur envoi:', err);
+      }
+
+      // Met à jour le compteur local
+      count++;
+      localStorage.setItem(STORAGE_KEY, count);
+      animateNum(document.getElementById('cntMain'), count - 1, count);
+
+      // Affiche le message de succès
+      document.getElementById(formId).style.display = 'none';
+      document.getElementById(successId).classList.add('show');
+
+      console.log('[PLAIZZ] New subscriber:', val);
+    }
+
+    /* ─── ENTER KEY ─ */
+    document.querySelectorAll('input[type="email"]').forEach(inp => {
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Enter') inp.closest('div').querySelector('button').click();
+      });
+    });
+  </script>
+</body>
+</html>
