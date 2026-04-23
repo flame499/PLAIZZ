@@ -448,7 +448,7 @@
   <!-- NAV -->
   <nav>
     <a class="logo-text" href="#">PLAIZZ</a>
-    <span class="nav-badge">Lancement imminent 🍬</span>
+    <span class="nav-badge">Lancement imminent <img src="candy-orange.png" alt="bonbon" style="width:20px;height:20px;object-fit:contain;vertical-align:middle;margin-left:2px;display:inline-block;"></span>
   </nav>
 
   <!-- ── HERO ──────────────────────────────────────────── -->
@@ -459,8 +459,7 @@
     <p class="hero-tagline">Le fruit devient bonbon.</p>
 
     <p class="hero-sub">
-      Des gummies chewy, moins sucrés et aux ingrédients naturels.
-      Le plaisir intelligent — sans se priver de rien.
+      Des gummies moins sucrés, avec des ingrédients plus naturels. Faites-vous PLAIZZ autrement.
     </p>
 
     <div class="flavours">
@@ -478,7 +477,7 @@
       <div class="success-msg" id="successHero">
         🍬 Yes ! On te contacte en avant-première.
       </div>
-      <p class="form-note">🔒 Pas de spam. Juste les news PLAIZZ qui comptent.</p>
+      <p class="form-note">🔒 Pas de spam. Juste les news qui font PLAIZZ.</p>
     </div>
 
     <!-- STATS -->
@@ -507,22 +506,22 @@
         <div class="card reveal">
           <div class="card-icon">🌿</div>
           <h3>100% Naturel</h3>
-          <p>Pas de colorants artificiels. Les couleurs et les arômes viennent directement des fruits — comme c'était censé l'être.</p>
+          <p>Sans colorants artificiels. Des couleurs et arômes issus des fruits.</p>
         </div>
         <div class="card reveal">
           <div class="card-icon">💚</div>
           <h3>Moins de sucre</h3>
-          <p>On réduit le sucre au max sans sacrifier le goût ni la texture. Tu te fais plaisir, sans excès.</p>
+          <p>Moins de sucre, sans compromis sur le goût ni la texture.</p>
         </div>
         <div class="card reveal">
           <div class="card-icon">✨</div>
           <h3>Texture premium</h3>
-          <p>Un équilibre parfait entre pectine et gélatine pour un chewy incomparable — addictif, mais le bon genre.</p>
+          <p>Un équilibre maîtrisé pour une texture unique et agréable.</p>
         </div>
         <div class="card reveal">
           <div class="card-icon">🌱</div>
           <h3>Options vegan</h3>
-          <p>Une gamme 100% végétale disponible pour profiter du plaisir PLAIZZ en accord avec ses valeurs.</p>
+          <p>Une option 100% végétale, pensée pour rester fidèle à l'esprit PLAIZZ.</p>
         </div>
       </div>
     </div>
@@ -561,7 +560,7 @@
     <div class="section-inner">
       <div class="cta-box reveal">
         <h2>Sois là <span>dès le premier sachet</span></h2>
-        <p>Rejoins la liste d'attente et reçois une offre exclusive early adopter avant que tout le monde en parle.</p>
+        <p>Rejoins la liste d'attente et accède à une offre exclusive avant le lancement.</p>
         <div class="form-dark" id="formBottom">
           <input type="email" id="emailBottom" placeholder="ton@email.com" />
           <button class="btn-dark" onclick="submitEmail('emailBottom','formBottom','successBottom')">Rejoindre →</button>
@@ -627,8 +626,7 @@
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
     /* ─── COUNTER ─ */
-    const STORAGE_KEY = 'plaizz_count';
-    let count = parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+    let count = 0;
 
     function animateNum(el, from, to, ms = 900) {
       const start = performance.now();
@@ -643,7 +641,22 @@
     function setCounter(n) {
       document.getElementById('cntMain').textContent = n;
     }
-    setCounter(count);
+
+    /* Lecture du vrai nombre d'inscrits depuis Google Sheets */
+    async function loadCount() {
+      try {
+        const res = await fetch(APPS_SCRIPT_URL + '?action=count', { method: 'GET', mode: 'cors' });
+        const data = await res.json();
+        if (data && typeof data.count === 'number') {
+          const prev = count;
+          count = data.count;
+          animateNum(document.getElementById('cntMain'), prev, count);
+        }
+      } catch(e) {
+        console.warn('[PLAIZZ] Impossible de charger le compteur:', e);
+      }
+    }
+    loadCount();
 
     /* ─── GOOGLE SHEETS CONFIG ─ */
     // ⚠️  Remplace cette URL par ton URL Apps Script après déploiement
@@ -676,10 +689,8 @@
         console.warn('[PLAIZZ] Erreur envoi:', err);
       }
 
-      // Met à jour le compteur local
-      count++;
-      localStorage.setItem(STORAGE_KEY, count);
-      animateNum(document.getElementById('cntMain'), count - 1, count);
+      // Met à jour le compteur depuis le serveur
+      setTimeout(loadCount, 1500);
 
       // Affiche le message de succès
       document.getElementById(formId).style.display = 'none';
