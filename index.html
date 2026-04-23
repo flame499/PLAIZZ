@@ -642,10 +642,16 @@
       document.getElementById('cntMain').textContent = n;
     }
 
+    /* ─── GOOGLE SHEETS CONFIG ─ */
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwT8kkQLFIksRw1R_fDyV-OP4yoAOXJbJemVD-N0lEvrX2rdEn8ZFGVtyEuMJg-k5Ir/exec';
+
     /* Lecture du vrai nombre d'inscrits depuis Google Sheets */
     async function loadCount() {
       try {
-        const res = await fetch(APPS_SCRIPT_URL + '?action=count', { method: 'GET', mode: 'cors' });
+        const res = await fetch(APPS_SCRIPT_URL + '?action=count', {
+          method: 'GET',
+          redirect: 'follow'
+        });
         const data = await res.json();
         if (data && typeof data.count === 'number') {
           const prev = count;
@@ -657,10 +663,6 @@
       }
     }
     loadCount();
-
-    /* ─── GOOGLE SHEETS CONFIG ─ */
-    // ⚠️  Remplace cette URL par ton URL Apps Script après déploiement
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwT8kkQLFIksRw1R_fDyV-OP4yoAOXJbJemVD-N0lEvrX2rdEn8ZFGVtyEuMJg-k5Ir/exec';
 
     /* ─── EMAIL SUBMIT ─ */
     async function submitEmail(inputId, formId, successId) {
