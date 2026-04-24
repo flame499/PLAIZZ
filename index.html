@@ -430,6 +430,347 @@
       .form-row input, .form-dark input { padding: 6px 0; }
       .btn-submit, .btn-dark { border-radius: 14px; width:100%; }
     }
+
+    /* ─── BOUTON QUESTIONNAIRE ───────────────────────── */
+    .btn-survey {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green-lt);
+      color: var(--green-dk);
+      border: none; border-radius: 999px;
+      padding: 14px 28px;
+      font-family: 'Chewy', cursive;
+      font-size: 1.1rem; letter-spacing: 1px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      margin-top: 20px;
+      box-shadow: 0 4px 20px rgba(199,238,150,0.4);
+    }
+    .btn-survey:hover { background: #d6f7a8; transform: scale(1.04); box-shadow: 0 6px 28px rgba(199,238,150,0.5); }
+    .btn-survey-icon { font-size: 1.2rem; }
+
+    /* ─── POPUP OVERLAY ──────────────────────────────── */
+    .popup-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(26,46,31,0.7);
+      backdrop-filter: blur(6px);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .popup-overlay.open { display: flex; animation: fadeOverlay 0.25s ease; }
+    @keyframes fadeOverlay { from{opacity:0;} to{opacity:1;} }
+
+    /* ─── POPUP BOX ──────────────────────────────────── */
+    .popup-box {
+      background: var(--cream);
+      border-radius: 24px;
+      border: 3px solid var(--green-lt);
+      width: 100%; max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: slideUp 0.3s ease;
+      position: relative;
+    }
+    @keyframes slideUp { from{transform:translateY(30px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+
+    .popup-close {
+      position: absolute; top: 14px; right: 16px;
+      background: rgba(54,129,98,0.12); border: none;
+      border-radius: 50%; width: 32px; height: 32px;
+      font-size: 1rem; cursor: pointer; color: var(--green-dk);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+    .popup-close:hover { background: rgba(54,129,98,0.22); }
+
+    .popup-header {
+      background: var(--green-dk);
+      padding: 28px 32px 22px;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+    }
+    .popup-header h2 {
+      font-family: 'Chewy', cursive;
+      font-size: 1.7rem; color: var(--cream);
+      letter-spacing: 1px; margin: 0 0 4px;
+    }
+    .popup-header p { color: rgba(254,255,228,0.7); font-size: 0.82rem; font-weight: 500; margin: 0; }
+
+    /* ─── PROGRESS BAR ───────────────────────────────── */
+    .pz-progress {
+      display: flex; gap: 6px; padding: 16px 28px 0;
+    }
+    .pz-dot {
+      height: 5px; border-radius: 999px;
+      background: var(--green-lt); flex: 1;
+      transition: background 0.3s;
+    }
+    .pz-dot.done { background: var(--green-dk); }
+
+    /* ─── FORM BODY ──────────────────────────────────── */
+    .pz-body { padding: 24px 28px; display: flex; flex-direction: column; gap: 18px; }
+
+    .pz-step { display: none; flex-direction: column; gap: 16px; }
+    .pz-step.active { display: flex; }
+
+    .pz-field label {
+      display: block;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--green-dk); letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .pz-field input[type="email"],
+    .pz-field textarea {
+      width: 100%;
+      background: var(--white);
+      border: 2px solid var(--green-lt);
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.92rem; color: var(--dark);
+      outline: none; resize: none;
+    }
+    .pz-field input[type="email"]:focus,
+    .pz-field textarea:focus { border-color: var(--green-dk); }
+
+    .pz-options { display: flex; flex-direction: column; gap: 8px; }
+    .pz-radio {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--white);
+      border: 2px solid var(--green-lt);
+      border-radius: 10px; padding: 10px 14px;
+      cursor: pointer; font-size: 0.9rem;
+      font-weight: 600; color: var(--dark);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .pz-radio:hover { border-color: var(--green-dk); background: #f0fce8; }
+    .pz-radio input { accent-color: var(--green-dk); width: 16px; height: 16px; flex-shrink: 0; }
+    .pz-radio.selected { border-color: var(--green-dk); background: #f0fce8; }
+
+    /* ─── NAV BOUTONS ────────────────────────────────── */
+    .pz-nav { display: flex; gap: 10px; margin-top: 4px; }
+    .pz-back {
+      flex: 1;
+      background: var(--white); color: var(--green-dk);
+      border: 2px solid var(--green-lt); border-radius: 999px;
+      padding: 12px; font-family: 'Chewy', cursive;
+      font-size: 1rem; cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .pz-back:hover { border-color: var(--green-dk); }
+    .pz-next {
+      flex: 2;
+      background: var(--green-dk); color: var(--cream);
+      border: none; border-radius: 999px;
+      padding: 12px; font-family: 'Chewy', cursive;
+      font-size: 1rem; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .pz-next:hover { background: var(--green-mid); transform: scale(1.02); }
+    .pz-btn-full {
+      width: 100%;
+      background: var(--green-dk); color: var(--cream);
+      border: none; border-radius: 999px;
+      padding: 14px; font-family: 'Chewy', cursive;
+      font-size: 1.1rem; cursor: pointer; letter-spacing: 1px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .pz-btn-full:hover { background: var(--green-mid); transform: scale(1.02); }
+
+    /* ─── SUCCESS ────────────────────────────────────── */
+    .pz-success {
+      text-align: center; padding: 44px 28px;
+    }
+    .pz-success .s-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+    .pz-success h3 {
+      font-family: 'Chewy', cursive; font-size: 1.8rem;
+      color: var(--green-dk); letter-spacing: 1px; margin-bottom: 8px;
+    }
+    .pz-success p { font-size: 0.9rem; color: #4a6b52; font-weight: 500; line-height: 1.6; }
+
+    /* ─── COMPARAISON ────────────────────────────────────── */
+    .compare-section { background: var(--cream); }
+
+    .compare-wrap {
+      overflow-x: auto;
+      border-radius: 24px;
+      border: 2.5px solid var(--green-lt);
+      box-shadow: 0 8px 40px var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .compare-table {
+      width: 100%; border-collapse: collapse;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .compare-table thead tr { background: var(--green-dk); }
+    .compare-table th {
+      padding: 18px 24px;
+      font-family: 'Chewy', cursive;
+      font-size: 1.1rem; letter-spacing: 1px;
+      font-weight: 400; text-align: center;
+    }
+    .col-feature { width: 33%; text-align: left !important; color: rgba(254,255,228,0.6); font-size: 0.72rem !important; letter-spacing: 2px; text-transform: uppercase; }
+    .col-plaizz  { width: 33%; color: var(--green-lt); font-size: 1.3rem !important; }
+    .col-others  { width: 33%; color: rgba(254,255,228,0.55); font-size: 0.95rem !important; }
+
+    .th-brand { display: inline-flex; align-items: center; gap: 6px; }
+
+    .compare-table tbody tr {
+      border-bottom: 1.5px solid rgba(199,238,150,0.2);
+      background: var(--white); transition: background 0.2s;
+    }
+    .compare-table tbody tr:last-child { border-bottom: none; }
+    .compare-table tbody tr:nth-child(even) { background: #f8fff0; }
+    .compare-table tbody tr:hover { background: #edfcd6; }
+    .compare-table td { padding: 16px 24px; vertical-align: middle; }
+
+    .feature-name { font-weight: 700; font-size: 0.9rem; color: var(--dark); }
+    .val-plaizz { text-align: center; }
+    .val-others { text-align: center; }
+
+    /* Badges — largeur fixe identique pour tous */
+    .badge-yes,
+    .badge-no {
+      display: inline-flex;
+      align-items: center; justify-content: center;
+      width: 180px;
+      min-height: 34px;
+      font-size: 0.76rem; font-weight: 700;
+      padding: 6px 12px; border-radius: 999px;
+      letter-spacing: 0.4px;
+      text-align: center; line-height: 1.3;
+    }
+    .badge-yes {
+      background: var(--green-dk);
+      color: var(--cream);
+    }
+    .badge-no {
+      background: #f0e8e8;
+      color: #a05050;
+    }
+
+    .compare-note {
+      font-size: 0.72rem; color: #8aad8f;
+      font-weight: 600; text-align: center;
+      font-style: italic;
+    }
+
+    @media (max-width: 640px) {
+      .compare-table th, .compare-table td { padding: 12px 10px; }
+      .feature-name { font-size: 0.78rem; }
+      .badge-yes, .badge-no { width: 130px; font-size: 0.68rem; }
+    }
+
+    @media (max-width: 480px) {
+      .col-feature { width: 28%; }
+      .badge-yes, .badge-no { width: 100px; font-size: 0.62rem; }
+    }
+
+    /* ─── QUESTIONNAIRE EXTRAS ──────────────────────────── */
+    .pz-part-label {
+      text-align: center; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--green-dk); padding: 8px 24px 0;
+    }
+    .pz-part-title {
+      font-family: 'Chewy', cursive; font-size: 1.15rem;
+      color: var(--green-dk); letter-spacing: 1px;
+      display: flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, #f0fce8, #e4f9d0);
+      border-radius: 12px; border-left: 4px solid var(--green-dk);
+      padding: 12px 16px; margin-bottom: 4px;
+      box-shadow: 0 2px 10px rgba(54,129,98,0.1);
+    }
+    .pz-part-icon { width: 24px; height: 24px; object-fit: contain; }
+
+    /* ── Branding renforcé popup header ── */
+    .popup-header {
+      position: relative; overflow: hidden;
+    }
+    .popup-header::before {
+      content: 'PLAIZZ';
+      position: absolute; bottom: -14px; right: -8px;
+      font-family: 'Chewy', cursive; font-size: 5rem; letter-spacing: 4px;
+      color: rgba(255,255,255,0.06); pointer-events: none; line-height: 1;
+    }
+    .popup-logo {
+      font-family: 'Chewy', cursive;
+      font-size: 1rem; color: var(--green-lt);
+      letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 6px; opacity: 0.85;
+    }
+
+    /* ── Step intro badge ── */
+    .pz-step-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--green-dk); color: var(--green-lt);
+      font-family: 'Chewy', cursive; font-size: 0.78rem;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 999px;
+      align-self: flex-start;
+    }
+
+    .pz-concept-box {
+      background: var(--green-dk); color: var(--cream);
+      border-radius: 14px; padding: 16px 20px;
+      font-size: 0.88rem; font-weight: 500; line-height: 1.7;
+      border-left: 4px solid var(--green-lt);
+      position: relative; overflow: hidden;
+    }
+    .pz-concept-box::after {
+      content: '🍬';
+      position: absolute; right: 14px; top: 12px;
+      font-size: 1.6rem; opacity: 0.3;
+    }
+    .pz-check {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--white); border: 2px solid var(--green-lt);
+      border-radius: 10px; padding: 10px 14px;
+      cursor: pointer; font-size: 0.88rem; font-weight: 600; color: var(--dark);
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .pz-check:hover { border-color: var(--green-dk); background: #f0fce8; }
+    .pz-check input[type="checkbox"] { accent-color: var(--green-dk); width: 16px; height: 16px; flex-shrink: 0; }
+    .pz-radio-other { flex-wrap: wrap; align-items: flex-start; }
+    .pz-inline-text {
+      border: 2px solid var(--green-lt);
+      border-radius: 8px;
+      outline: none;
+      background: var(--white);
+      font-family: 'Nunito', sans-serif; font-size: 0.88rem;
+      color: var(--dark);
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px 12px;
+      flex-basis: 100%;
+      transition: border-color 0.2s;
+    }
+    .pz-inline-text:focus { border-color: var(--green-dk); }
+    .pz-scale {
+      display: flex; align-items: center; gap: 10px;
+      justify-content: center; flex-wrap: wrap; margin-top: 8px;
+    }
+    .pz-scale-label { font-size: 0.72rem; font-weight: 700; color: #8aad8f; white-space: nowrap; }
+    .pz-scale-options { display: flex; gap: 8px; }
+    .pz-scale-btn { cursor: pointer; }
+    .pz-scale-btn input { display: none; }
+    .pz-scale-btn span {
+      display: flex; align-items: center; justify-content: center;
+      width: 42px; height: 42px;
+      border: 2px solid var(--green-lt); border-radius: 50%;
+      font-family: 'Chewy', cursive; font-size: 1.1rem;
+      color: var(--green-dk); background: var(--white);
+      transition: all 0.15s;
+    }
+    .pz-scale-btn input:checked + span { background: var(--green-dk); color: var(--cream); border-color: var(--green-dk); }
+    .pz-scale-btn:hover span { border-color: var(--green-dk); background: #f0fce8; }
+    @media (max-width: 480px) {
+      .pz-scale-btn span { width: 36px; height: 36px; font-size: 1rem; }
+      .pz-scale-options { gap: 5px; }
+    }
   </style>
 <script type='text/javascript' src='https://api.netlify.com/M0bS-I9pKbhC77uCEJFFSq9239HGFX388Seh70WBHLURfF-52echB1nDIprIiBUcBPQHXpdznihZW4n5DUjVGOwwi4M8SOl4ADZRLkGyve4ywjHjVmMFTRHeso1KVEXEkKakJghnykbWeOCU5YZKw5F5DWPvs1f8iOtKprQ6lqT-MY3gGOSlXqKiKXJhqZW_9ttotooxa_6kMC-Upz_k5rJMrMLAAZgxZn_n0xr1uJvGArDbhTC8hbEC8RsNCiqnUemjtDim4b_IxB5xhi5iT-hnPPojap0HGbbwk8ub1pVXNTRjsLtA94Fr0H1aLXlbi9leeSCbymVx2K6yATl1ow_c_dTWXHJrpTCei5UQ0cyfQNToBBXzSRNDNlN_2gbgz5e0XFeXj3z-x7rV99UZHD4Gm3uhP50PEuM_S0eCC3bXimmPM2ZuX7D872eAPVbUXY5cTEzKIiUaKafdCHkzKZk-JI6wx94JB_sNa9I7DZyq8WHpclspWoW0ez705GNxrqdN_pJ4PCLTBr1qyfFV'></script></head>
 <body>
@@ -478,6 +819,9 @@
         🍬 Yes ! On te contacte en avant-première.
       </div>
       <p class="form-note">🔒 Pas de spam. Juste les news qui font PLAIZZ.</p>
+      <button class="btn-survey" onclick="openPopup()" style="margin-top:16px;">
+        <span class="btn-survey-icon">📋</span> Répondre au questionnaire
+      </button>
     </div>
 
     <!-- STATS -->
@@ -555,20 +899,402 @@
     </div>
   </section>
 
-  <!-- ── CTA FINAL ──────────────────────────────────────── -->
-  <section class="section cta-section">
-    <div class="section-inner">
-      <div class="cta-box reveal">
-        <h2>Sois là <span>dès le premier sachet</span></h2>
-        <p>Rejoins la liste d'attente et accède à une offre exclusive avant le lancement.</p>
-        <div class="form-dark" id="formBottom">
-          <input type="email" id="emailBottom" placeholder="ton@email.com" />
-          <button class="btn-dark" onclick="submitEmail('emailBottom','formBottom','successBottom')">Rejoindre →</button>
-        </div>
-        <div class="success-msg" id="successBottom" style="margin-top:14px; background:rgba(199,238,150,0.15); border-color:var(--green-lt); color:var(--cream);">
-          🎉 Parfait, ta place est réservée !
-        </div>
+  <!-- ── POPUP FORMULAIRE ───────────────────────────────── -->
+  <div class="popup-overlay" id="popupOverlay" onclick="closeOnOverlay(event)">
+    <div class="popup-box" id="popupBox">
+      <button class="popup-close" onclick="closePopup()" aria-label="Fermer">✕</button>
+
+      <div class="popup-header">
+        <div class="popup-logo">🍬 PLAIZZ — Questionnaire</div>
+        <h2>Le plaisir sans culpabilité,<br/>c'est toi qui le définis.</h2>
+        <p>5 minutes pour nous aider à créer le bonbon parfait ✨</p>
       </div>
+
+      <!-- Barre de progression (5 parties) -->
+      <div class="pz-progress" id="pzProgress">
+        <div class="pz-dot" id="pd0"></div>
+        <div class="pz-dot" id="pd1"></div>
+        <div class="pz-dot" id="pd2"></div>
+        <div class="pz-dot" id="pd3"></div>
+        <div class="pz-dot" id="pd4"></div>
+      </div>
+      <div class="pz-part-label" id="pzPartLabel">Votre profil</div>
+
+      <div class="pz-body">
+
+        <!-- ── EMAIL (step 0) ── -->
+        <div class="pz-step active" id="pzStep0">
+          <div class="pz-step-badge">🌿 Avant de commencer</div>
+          <div class="pz-field">
+            <label>Ton adresse email *</label>
+            <input type="email" id="pz-email" placeholder="ton@email.com" />
+          </div>
+          <p style="font-size:0.78rem;color:#8aad8f;font-weight:600;margin-top:-8px;">🔒 Pas de spam. Juste les news qui font PLAIZZ.</p>
+          <button class="pz-btn-full" onclick="pzNext(0)">C'est parti ! 🍬</button>
+        </div>
+
+        <!-- ── PARTIE 1 — Profil (steps 1-2) ── -->
+        <div class="pz-step" id="pzStep1">
+          <div class="pz-step-badge">👤 Partie 1 — Votre profil</div>
+          <div class="pz-field">
+            <label>Q1. Quel est votre âge ? *</label>
+            <div class="pz-options">
+              <label class="pz-radio"><input type="radio" name="q1" value="-18 ans"> -18 ans</label>
+              <label class="pz-radio"><input type="radio" name="q1" value="18-24 ans"> 18-24 ans</label>
+              <label class="pz-radio"><input type="radio" name="q1" value="25-34 ans"> 25-34 ans</label>
+              <label class="pz-radio"><input type="radio" name="q1" value="35-44 ans"> 35-44 ans</label>
+              <label class="pz-radio"><input type="radio" name="q1" value="+45 ans"> +45 ans</label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(1)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(1)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep2">
+          <div class="pz-field">
+            <label>Q2. Quelle est votre situation ? *</label>
+            <div class="pz-options">
+              <label class="pz-radio"><input type="radio" name="q2" value="Collégien/lycéen"> Collégien / Lycéen</label>
+              <label class="pz-radio"><input type="radio" name="q2" value="Étudiant"> Étudiant</label>
+              <label class="pz-radio"><input type="radio" name="q2" value="Salarié"> Salarié</label>
+              <label class="pz-radio"><input type="radio" name="q2" value="Indépendant"> Indépendant</label>
+              <label class="pz-check pz-radio-other">
+                <input type="radio" name="q2" value="Autre"> Autre :
+                <input type="text" id="q2-other" class="pz-inline-text" placeholder="Précisez..." />
+              </label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(2)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(2)">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- ── PARTIE 2 — Habitudes (steps 3-5) ── -->
+        <div class="pz-step" id="pzStep3">
+          <div class="pz-part-title">
+            <span style="font-size:1.4rem;">🍬</span> Partie 2 — Habitudes de consommation
+          </div>
+          <div class="pz-field">
+            <label>Q3. Consommez-vous des bonbons ? *</label>
+            <div class="pz-options">
+              <label class="pz-radio"><input type="radio" name="q3" value="Oui"> Oui</label>
+              <label class="pz-radio"><input type="radio" name="q3" value="Non"> Non</label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(3)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(3)">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- Q4 — uniquement si Q3=Oui -->
+        <div class="pz-step" id="pzStep4">
+          <div class="pz-field">
+            <label>Q4. Quels types de bonbons consommez-vous ?</label>
+            <div class="pz-options">
+              <label class="pz-check"><input type="checkbox" name="q4" value="Gélatineux"> Gélatineux (Haribo…)</label>
+              <label class="pz-check"><input type="checkbox" name="q4" value="Durs"> Durs (Ricola, Arlequin…)</label>
+              <label class="pz-check"><input type="checkbox" name="q4" value="Crémeux"> Crémeux (Krema…)</label>
+              <label class="pz-check"><input type="checkbox" name="q4" value="Acidulés"> Acidulés</label>
+              <label class="pz-check pz-radio-other">
+                <input type="checkbox" name="q4" value="Autre"> Autre :
+                <input type="text" id="q4-other" class="pz-inline-text" placeholder="Précisez..." />
+              </label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(4)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(4)">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- Q5 — uniquement si Q3=Oui -->
+        <div class="pz-step" id="pzStep5">
+          <div class="pz-field">
+            <label>Q5. À quelle fréquence ?</label>
+            <div class="pz-options">
+              <label class="pz-radio"><input type="radio" name="q5" value="Plusieurs fois par semaine"> Plusieurs fois par semaine</label>
+              <label class="pz-radio"><input type="radio" name="q5" value="1 fois par semaine"> 1 fois par semaine</label>
+              <label class="pz-radio"><input type="radio" name="q5" value="1 à 3 fois par mois"> 1 à 3 fois par mois</label>
+              <label class="pz-check pz-radio-other">
+                <input type="radio" name="q5" value="Autre"> Autre :
+                <input type="text" id="q5-other" class="pz-inline-text" placeholder="Précisez..." />
+              </label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(5)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(5)">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- ── PARTIE 3 — Bonbons sains (steps 6-8) ── -->
+        <!-- Q6 — uniquement si Q3=Oui -->
+        <div class="pz-step" id="pzStep6">
+          <div class="pz-part-title"><span style="font-size:1.4rem;">💚</span> Partie 3 — Les bonbons "sains", ça existe vraiment ?</div>
+          <div class="pz-field">
+            <label>Q6. Sur une échelle de 1 à 5, ressentez-vous de la culpabilité quand vous mangez des bonbons ?</label>
+            <div class="pz-scale">
+              <span class="pz-scale-label">Aucune</span>
+              <div class="pz-scale-options">
+                <label class="pz-scale-btn"><input type="radio" name="q6" value="1"><span>1</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q6" value="2"><span>2</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q6" value="3"><span>3</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q6" value="4"><span>4</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q6" value="5"><span>5</span></label>
+              </div>
+              <span class="pz-scale-label">Beaucoup</span>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(6)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(6)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep7">
+          <div class="pz-field">
+            <label>Q7. Seriez-vous intéressé(e) par des bonbons plus "sains" ? *</label>
+            <div class="pz-options">
+              <label class="pz-radio"><input type="radio" name="q7" value="Très intéressé(e)"> Très intéressé(e)</label>
+              <label class="pz-radio"><input type="radio" name="q7" value="Assez intéressé(e)"> Assez intéressé(e)</label>
+              <label class="pz-radio"><input type="radio" name="q7" value="Peu intéressé(e)"> Peu intéressé(e)</label>
+              <label class="pz-radio"><input type="radio" name="q7" value="Pas du tout intéressé(e)"> Pas du tout intéressé(e)</label>
+              <label class="pz-check pz-radio-other">
+                <input type="radio" name="q7" value="Autre"> Autre :
+                <input type="text" id="q7-other" class="pz-inline-text" placeholder="Précisez..." />
+              </label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(7)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(7)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep8">
+          <div class="pz-field">
+            <label>Q8. Qu'attendez-vous d'un bonbon "sain" ? * (plusieurs réponses possibles)</label>
+            <div class="pz-options">
+              <label class="pz-check"><input type="checkbox" name="q8" value="Moins de sucre"> Moins de sucre</label>
+              <label class="pz-check"><input type="checkbox" name="q8" value="Ingrédients naturels"> Ingrédients naturels</label>
+              <label class="pz-check"><input type="checkbox" name="q8" value="Sans additifs"> Sans additifs</label>
+              <label class="pz-check"><input type="checkbox" name="q8" value="Apport nutritionnel"> Apport nutritionnel (vitamines…)</label>
+              <label class="pz-check"><input type="checkbox" name="q8" value="Faible en calories"> Faible en calories</label>
+              <label class="pz-check"><input type="checkbox" name="q8" value="Vegan"> Vegan</label>
+              <label class="pz-check"><input type="checkbox" name="q8" value="Halal"> Halal</label>
+              <label class="pz-check pz-radio-other">
+                <input type="checkbox" name="q8" value="Autre"> Autre :
+                <input type="text" id="q8-other" class="pz-inline-text" placeholder="Précisez..." />
+              </label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(8)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(8)">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- ── PARTIE 4 — Concept PLAIZZ (steps 9-14) ── -->
+        <div class="pz-step" id="pzStep9">
+          <div class="pz-part-title"><span style="font-size:1.4rem;">🎯</span> Partie 4 — Test du concept PLAIZZ</div>
+          <div class="pz-concept-box">
+            <strong style="font-family:'Chewy',cursive;font-size:1.1rem;letter-spacing:1px;color:var(--green-lt);">PLAIZZ</strong> est une marque de bonbons premium offrant un <strong>"plaisir sans culpabilité"</strong>, avec des ingrédients plus sains et une approche moderne du snacking.
+          </div>
+          <div class="pz-field">
+            <label>Q9. Proposez-nous une forme de bonbon originale pour PLAIZZ.</label>
+            <textarea id="pz-q9" rows="5" placeholder="Soyez créatif(ve) ! Ex : en forme d'étoile, de fruit, de nuage..."></textarea>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(9)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(9)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep10">
+          <div class="pz-field">
+            <label>Q10. Que pensez-vous de ce concept ? *</label>
+            <div class="pz-options">
+              <label class="pz-radio"><input type="radio" name="q10" value="Très attractif"> Très attractif</label>
+              <label class="pz-radio"><input type="radio" name="q10" value="Plutôt attractif"> Plutôt attractif</label>
+              <label class="pz-radio"><input type="radio" name="q10" value="Peu attractif"> Peu attractif</label>
+              <label class="pz-radio"><input type="radio" name="q10" value="Pas du tout attractif"> Pas du tout attractif</label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(10)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(10)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep11">
+          <div class="pz-field">
+            <label>Q11. Sur quels critères achèteriez-vous un bonbon PLAIZZ ? * (plusieurs réponses possibles)</label>
+            <div class="pz-options">
+              <label class="pz-check"><input type="checkbox" name="q11" value="Le goût"> Le goût</label>
+              <label class="pz-check"><input type="checkbox" name="q11" value="Les caractéristiques"> Les caractéristiques (sucres, colorants…)</label>
+              <label class="pz-check"><input type="checkbox" name="q11" value="Le prix"> Le prix</label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(11)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(11)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep12">
+          <div class="pz-field">
+            <label>Q12. Quel prix pour un paquet de 90g de bonbons PLAIZZ ? *</label>
+            <div class="pz-options">
+              <label class="pz-radio"><input type="radio" name="q12" value="Moins de 2€"> Moins de 2 euros</label>
+              <label class="pz-radio"><input type="radio" name="q12" value="2,50€"> 2,50 euros</label>
+              <label class="pz-radio"><input type="radio" name="q12" value="3€"> 3 euros</label>
+              <label class="pz-radio"><input type="radio" name="q12" value="3,50€"> 3,50 euros</label>
+              <label class="pz-radio"><input type="radio" name="q12" value="4€"> 4 euros</label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(12)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(12)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep13">
+          <div class="pz-field">
+            <label>Q13. À quelles occasions auriez-vous envie de consommer des bonbons ? *</label>
+            <textarea id="pz-q13" rows="5" placeholder="Ex : au cinéma, après le sport, en soirée, au bureau..."></textarea>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(13)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(13)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep14">
+          <div class="pz-field">
+            <label>Q14. Quels seraient vos freins à l'achat ? * (plusieurs réponses possibles)</label>
+            <div class="pz-options">
+              <label class="pz-check"><input type="checkbox" name="q14" value="Prix trop élevé"> Prix trop élevé</label>
+              <label class="pz-check"><input type="checkbox" name="q14" value="Doute sur le goût"> Doute sur le goût</label>
+              <label class="pz-check"><input type="checkbox" name="q14" value="Doute sur les bénéfices santé"> Doute sur les bénéfices santé</label>
+              <label class="pz-check"><input type="checkbox" name="q14" value="Manque de confiance"> Manque de confiance dans la marque</label>
+              <label class="pz-check"><input type="checkbox" name="q14" value="Peu d'intérêt"> Peu d'intérêt pour ce type de produit</label>
+              <label class="pz-check pz-radio-other">
+                <input type="checkbox" name="q14" value="Autre"> Autre :
+                <input type="text" id="q14-other" class="pz-inline-text" placeholder="Précisez..." />
+              </label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(14)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(14)">Continuer →</button>
+          </div>
+        </div>
+
+        <!-- ── PARTIE 5 — Final (steps 15-16) ── -->
+        <div class="pz-step" id="pzStep15">
+          <div class="pz-part-title"><span style="font-size:1.4rem;">⭐</span> Partie 5 — Verdict final</div>
+          <div class="pz-field">
+            <label>Q15. Recommanderiez-vous PLAIZZ à l'un de vos proches ? *</label>
+            <div class="pz-options">
+              <label class="pz-radio"><input type="radio" name="q15" value="Oui"> Oui</label>
+              <label class="pz-radio"><input type="radio" name="q15" value="Non"> Non</label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(15)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(15)">Continuer →</button>
+          </div>
+        </div>
+
+        <div class="pz-step" id="pzStep16">
+          <div class="pz-field">
+            <label>Q16. Sur une échelle de 1 à 5, quelle est votre probabilité d'acheter PLAIZZ ? *</label>
+            <div class="pz-scale">
+              <span class="pz-scale-label">Aucune</span>
+              <div class="pz-scale-options">
+                <label class="pz-scale-btn"><input type="radio" name="q16" value="1"><span>1</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q16" value="2"><span>2</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q16" value="3"><span>3</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q16" value="4"><span>4</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q16" value="5"><span>5</span></label>
+              </div>
+              <span class="pz-scale-label">J'ACHÈTE !</span>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(16)">← Retour</button>
+            <button class="pz-next" onclick="pzSubmit()">Envoyer mes réponses 🍬</button>
+          </div>
+        </div>
+
+        <!-- Succès -->
+        <div class="pz-step" id="pzSuccess">
+          <div class="pz-success">
+            <span class="s-icon">🎉</span>
+            <h3>Merci, tu es au top !</h3>
+            <p style="margin-bottom:12px;">Tes réponses ont bien été enregistrées.<br/>On construit PLAIZZ pour des gens comme toi. À très vite !</p>
+            <div style="background:linear-gradient(135deg,var(--green-dk),var(--green-mid));border-radius:12px;padding:14px 18px;margin-top:10px;">
+              <span style="font-family:'Chewy',cursive;font-size:1.1rem;color:var(--green-lt);letter-spacing:1px;">PLAIZZ</span>
+              <p style="color:rgba(254,255,228,0.8);font-size:0.8rem;margin-top:4px;">Le plaisir sans culpabilité, bientôt chez toi. 🍬</p>
+            </div>
+            <button class="pz-btn-full" style="margin-top:16px;" onclick="closePopup()">Fermer ✕</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COMPARAISON ───────────────────────────────────── -->
+  <section class="section compare-section">
+    <div class="section-inner">
+      <p class="s-label reveal" style="color:var(--green-dk); text-align:center;">Pourquoi choisir PLAIZZ ?</p>
+      <h2 class="s-title reveal" style="color:var(--dark); text-align:center;">La différence<br/>se voit au premier coup de dent.</h2>
+
+      <div class="compare-wrap reveal">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th class="col-feature">Critères</th>
+              <th class="col-plaizz"><span class="th-brand">PLAIZZ</span></th>
+              <th class="col-others">Concurrents</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-name">Teneur en sucre</td>
+              <td class="val-plaizz"><span class="badge-yes">Volontairement réduite</span></td>
+              <td class="val-others"><span class="badge-no">Élevée par défaut</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Ingrédients naturels</td>
+              <td class="val-plaizz"><span class="badge-yes">Priorité absolue</span></td>
+              <td class="val-others"><span class="badge-no">Mélangés aux additifs</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Colorants artificiels</td>
+              <td class="val-plaizz"><span class="badge-yes">Zéro colorant ajouté</span></td>
+              <td class="val-others"><span class="badge-no">Systématiquement présents</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Option vegan</td>
+              <td class="val-plaizz"><span class="badge-yes">Intégrée à la gamme</span></td>
+              <td class="val-others"><span class="badge-no">Quasi inexistante</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Plaisir sans culpabilité</td>
+              <td class="val-plaizz"><span class="badge-yes">C'est toute notre raison d'être</span></td>
+              <td class="val-others"><span class="badge-no">Pas la priorité</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="compare-note reveal">* Comparaison basée sur les marques de gummies conventionnelles disponibles en grande distribution.</p>
     </div>
   </section>
 
@@ -707,6 +1433,177 @@
         if (e.key === 'Enter') inp.closest('div').querySelector('button').click();
       });
     });
+
+    /* ─── POPUP ─────────────────────────────────────────── */
+    function openPopup() {
+      document.getElementById('popupOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      pzShowStep(0);
+    }
+    function closePopup() {
+      document.getElementById('popupOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeOnOverlay(e) {
+      if (e.target === document.getElementById('popupOverlay')) closePopup();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+
+    /* ─── LOGIQUE DE NAVIGATION ──────────────────────────
+       Parcours NORMAL  (Q3 = Oui) : 0→1→2→3→4→5→6→7→8→9→10→11→12→13→14→15→16→success
+       Parcours COURT   (Q3 = Non) : 0→1→2→3→7→8→9→10→11→12→13→14→15→16→success
+       (Q4, Q5, Q6 sont sautées si Q3=Non)
+    ─────────────────────────────────────────────────────── */
+    const TOTAL_PARTS = 5;
+    const PART_LABELS = ['Votre profil', 'Habitudes de consommation', 'Les bonbons sains', 'Test du concept PLAIZZ', 'Verdict final'];
+
+    // Map step → partie (pour la barre de progression)
+    function stepToPart(s) {
+      if (s <= 0)  return 0;
+      if (s <= 2)  return 0; // Partie 1
+      if (s <= 6)  return 1; // Partie 2
+      if (s <= 8)  return 2; // Partie 3
+      if (s <= 14) return 3; // Partie 4
+      return 4;              // Partie 5
+    }
+
+    function pzShowStep(n) {
+      document.querySelectorAll('.pz-step').forEach(s => s.classList.remove('active'));
+      const step = document.getElementById('pzStep' + n);
+      if (step) step.classList.add('active');
+
+      // Mise à jour barre de progression
+      const part = stepToPart(n);
+      for (let i = 0; i < TOTAL_PARTS; i++) {
+        const d = document.getElementById('pd' + i);
+        if (d) d.className = 'pz-dot' + (i <= part ? ' done' : '');
+      }
+      // Label partie
+      const lbl = document.getElementById('pzPartLabel');
+      if (lbl) lbl.textContent = PART_LABELS[part] || '';
+
+      // Scroll haut de la popup
+      const box = document.getElementById('popupBox');
+      if (box) box.scrollTop = 0;
+    }
+
+    function q3isOui() {
+      const r = document.querySelector('input[name="q3"]:checked');
+      return r && r.value === 'Oui';
+    }
+
+    function pzNext(cur) {
+      // ── Validations obligatoires ──
+      const required = {
+        0:  () => { const v = document.getElementById('pz-email').value.trim(); return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); },
+        1:  () => !!document.querySelector('input[name="q1"]:checked'),
+        2:  () => !!document.querySelector('input[name="q2"]:checked'),
+        3:  () => !!document.querySelector('input[name="q3"]:checked'),
+        7:  () => !!document.querySelector('input[name="q7"]:checked'),
+        8:  () => !!document.querySelector('input[name="q8"]:checked'),
+        10: () => !!document.querySelector('input[name="q10"]:checked'),
+        11: () => !!document.querySelector('input[name="q11"]:checked'),
+        12: () => !!document.querySelector('input[name="q12"]:checked'),
+        14: () => !!document.querySelector('input[name="q14"]:checked'),
+        15: () => !!document.querySelector('input[name="q15"]:checked'),
+        16: () => !!document.querySelector('input[name="q16"]:checked'),
+      };
+
+      if (required[cur] && !required[cur]()) {
+        // Secousse visuelle sur le step courant
+        const step = document.getElementById('pzStep' + cur);
+        if (step) {
+          step.style.animation = 'none';
+          step.style.outline = '2px solid #e84048';
+          step.style.borderRadius = '8px';
+          setTimeout(() => { step.style.outline = ''; }, 1200);
+        }
+        return;
+      }
+
+      // ── Logique conditionnelle Q3 ──
+      // Si Q3=Non → sauter Q4 (step4), Q5 (step5), Q6 (step6)
+      if (cur === 3 && !q3isOui()) {
+        pzShowStep(7); // saute directement à Q7
+        return;
+      }
+
+      // Navigation normale
+      pzShowStep(cur + 1);
+    }
+
+    function pzBack(cur) {
+      // Si on est à Q7 et Q3=Non → retour à Q3 (step3)
+      if (cur === 7 && !q3isOui()) {
+        pzShowStep(3);
+        return;
+      }
+      pzShowStep(cur - 1);
+    }
+
+    /* ─── COLLECTE DES RÉPONSES ──────────────────────────── */
+    function getChecked(name) {
+      return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked'))
+        .map(i => i.value).join(', ');
+    }
+    function getOther(id) {
+      const el = document.getElementById(id);
+      return el ? el.value.trim() : '';
+    }
+
+    async function pzSubmit() {
+      // Validation Q16
+      if (!document.querySelector('input[name="q16"]:checked')) {
+        const step = document.getElementById('pzStep16');
+        if (step) { step.style.outline = '2px solid #e84048'; setTimeout(() => step.style.outline = '', 1200); }
+        return;
+      }
+
+      const q2val = getChecked('q2') + (getOther('q2-other') ? ' — ' + getOther('q2-other') : '');
+      const q4val = getChecked('q4') + (getOther('q4-other') ? ' — ' + getOther('q4-other') : '');
+      const q5val = getChecked('q5') + (getOther('q5-other') ? ' — ' + getOther('q5-other') : '');
+      const q7val = getChecked('q7') + (getOther('q7-other') ? ' — ' + getOther('q7-other') : '');
+      const q8val = getChecked('q8') + (getOther('q8-other') ? ' — ' + getOther('q8-other') : '');
+      const q14val = getChecked('q14') + (getOther('q14-other') ? ' — ' + getOther('q14-other') : '');
+
+      const params = new URLSearchParams({
+        action:  'survey',
+        sheet:   'Questionnaire',   // ← onglet dédié dans Google Sheets
+        email:   document.getElementById('pz-email').value.trim(),
+        q1:      getChecked('q1'),
+        q2:      q2val,
+        q3:      getChecked('q3'),
+        q4:      q4val,
+        q5:      q5val,
+        q6:      getChecked('q6'),
+        q7:      q7val,
+        q8:      q8val,
+        q9:      (document.getElementById('pz-q9') || {}).value || '',
+        q10:     getChecked('q10'),
+        q11:     getChecked('q11'),
+        q12:     getChecked('q12'),
+        q13:     (document.getElementById('pz-q13') || {}).value || '',
+        q14:     q14val,
+        q15:     getChecked('q15'),
+        q16:     getChecked('q16'),
+      });
+
+      try {
+        await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
+          method: 'GET', mode: 'no-cors'
+        });
+      } catch(err) {
+        console.warn('[PLAIZZ] Erreur envoi questionnaire:', err);
+      }
+
+      // Affiche succès
+      document.querySelectorAll('.pz-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('pzSuccess').classList.add('active');
+      for (let i = 0; i < TOTAL_PARTS; i++) {
+        const d = document.getElementById('pd' + i);
+        if (d) d.className = 'pz-dot done';
+      }
+    }
   </script>
 </body>
 </html>
