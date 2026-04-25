@@ -1114,13 +1114,30 @@
           </div>
         </div>
 
+        <div class="pz-step" id="pzStep10">
+          <div class="pz-field">
+            <label>Q10. Sur quels critères achèteriez-vous un bonbon PLAIZZ ? * (plusieurs réponses possibles)</label>
+            <div class="pz-options">
+              <label class="pz-check"><input type="checkbox" name="q10" value="Le goût"> Le goût</label>
+              <label class="pz-check"><input type="checkbox" name="q10" value="Les caractéristiques"> Les caractéristiques (sucres, colorants…)</label>
+              <label class="pz-check"><input type="checkbox" name="q10" value="Le prix"> Le prix</label>
+            </div>
+          </div>
+          <div class="pz-nav">
+            <button class="pz-back" onclick="pzBack(10)">← Retour</button>
+            <button class="pz-next" onclick="pzNext(10)">Continuer →</button>
+          </div>
+        </div>
+
         <div class="pz-step" id="pzStep11">
           <div class="pz-field">
-            <label>Q11. Sur quels critères achèteriez-vous un bonbon PLAIZZ ? * (plusieurs réponses possibles)</label>
+            <label>Q11. Quel prix pour un paquet de 90g de bonbons PLAIZZ ? *</label>
             <div class="pz-options">
-              <label class="pz-check"><input type="checkbox" name="q11" value="Le goût"> Le goût</label>
-              <label class="pz-check"><input type="checkbox" name="q11" value="Les caractéristiques"> Les caractéristiques (sucres, colorants…)</label>
-              <label class="pz-check"><input type="checkbox" name="q11" value="Le prix"> Le prix</label>
+              <label class="pz-radio"><input type="radio" name="q11" value="Moins de 2€"> Moins de 2 euros</label>
+              <label class="pz-radio"><input type="radio" name="q11" value="2,50€"> 2,50 euros</label>
+              <label class="pz-radio"><input type="radio" name="q11" value="3€"> 3 euros</label>
+              <label class="pz-radio"><input type="radio" name="q11" value="3,50€"> 3,50 euros</label>
+              <label class="pz-radio"><input type="radio" name="q11" value="4€"> 4 euros</label>
             </div>
           </div>
           <div class="pz-nav">
@@ -1131,14 +1148,8 @@
 
         <div class="pz-step" id="pzStep12">
           <div class="pz-field">
-            <label>Q12. Quel prix pour un paquet de 90g de bonbons PLAIZZ ? *</label>
-            <div class="pz-options">
-              <label class="pz-radio"><input type="radio" name="q12" value="Moins de 2€"> Moins de 2 euros</label>
-              <label class="pz-radio"><input type="radio" name="q12" value="2,50€"> 2,50 euros</label>
-              <label class="pz-radio"><input type="radio" name="q12" value="3€"> 3 euros</label>
-              <label class="pz-radio"><input type="radio" name="q12" value="3,50€"> 3,50 euros</label>
-              <label class="pz-radio"><input type="radio" name="q12" value="4€"> 4 euros</label>
-            </div>
+            <label>Q12. À quelles occasions auriez-vous envie de consommer des bonbons ? *</label>
+            <textarea id="pz-q12" rows="5" placeholder="Ex : au cinéma, après le sport, en soirée, au bureau..."></textarea>
           </div>
           <div class="pz-nav">
             <button class="pz-back" onclick="pzBack(12)">← Retour</button>
@@ -1148,8 +1159,18 @@
 
         <div class="pz-step" id="pzStep13">
           <div class="pz-field">
-            <label>Q13. À quelles occasions auriez-vous envie de consommer des bonbons ? *</label>
-            <textarea id="pz-q13" rows="5" placeholder="Ex : au cinéma, après le sport, en soirée, au bureau..."></textarea>
+            <label>Q13. Quels seraient vos freins à l'achat ? * (plusieurs réponses possibles)</label>
+            <div class="pz-options">
+              <label class="pz-check"><input type="checkbox" name="q13" value="Prix trop élevé"> Prix trop élevé</label>
+              <label class="pz-check"><input type="checkbox" name="q13" value="Doute sur le goût"> Doute sur le goût</label>
+              <label class="pz-check"><input type="checkbox" name="q13" value="Doute sur les bénéfices santé"> Doute sur les bénéfices santé</label>
+              <label class="pz-check"><input type="checkbox" name="q13" value="Manque de confiance"> Manque de confiance dans la marque</label>
+              <label class="pz-check"><input type="checkbox" name="q13" value="Peu d'intérêt"> Peu d'intérêt pour ce type de produit</label>
+              <label class="pz-check pz-radio-other">
+                <input type="checkbox" name="q13" value="Autre"> Autre :
+                <input type="text" id="q13-other" class="pz-inline-text" placeholder="Précisez..." />
+              </label>
+            </div>
           </div>
           <div class="pz-nav">
             <button class="pz-back" onclick="pzBack(13)">← Retour</button>
@@ -1157,19 +1178,14 @@
           </div>
         </div>
 
+        <!-- ── PARTIE 5 — Final (steps 14-15) ── -->
         <div class="pz-step" id="pzStep14">
+          <div class="pz-part-title"><span style="font-size:1.4rem;">⭐</span> Partie 5 — Verdict final</div>
           <div class="pz-field">
-            <label>Q14. Quels seraient vos freins à l'achat ? * (plusieurs réponses possibles)</label>
+            <label>Q14. Recommanderiez-vous PLAIZZ à l'un de vos proches ? *</label>
             <div class="pz-options">
-              <label class="pz-check"><input type="checkbox" name="q14" value="Prix trop élevé"> Prix trop élevé</label>
-              <label class="pz-check"><input type="checkbox" name="q14" value="Doute sur le goût"> Doute sur le goût</label>
-              <label class="pz-check"><input type="checkbox" name="q14" value="Doute sur les bénéfices santé"> Doute sur les bénéfices santé</label>
-              <label class="pz-check"><input type="checkbox" name="q14" value="Manque de confiance"> Manque de confiance dans la marque</label>
-              <label class="pz-check"><input type="checkbox" name="q14" value="Peu d'intérêt"> Peu d'intérêt pour ce type de produit</label>
-              <label class="pz-check pz-radio-other">
-                <input type="checkbox" name="q14" value="Autre"> Autre :
-                <input type="text" id="q14-other" class="pz-inline-text" placeholder="Précisez..." />
-              </label>
+              <label class="pz-radio"><input type="radio" name="q14" value="Oui"> Oui</label>
+              <label class="pz-radio"><input type="radio" name="q14" value="Non"> Non</label>
             </div>
           </div>
           <div class="pz-nav">
@@ -1178,39 +1194,23 @@
           </div>
         </div>
 
-        <!-- ── PARTIE 5 — Final (steps 15-16) ── -->
         <div class="pz-step" id="pzStep15">
-          <div class="pz-part-title"><span style="font-size:1.4rem;">⭐</span> Partie 5 — Verdict final</div>
           <div class="pz-field">
-            <label>Q15. Recommanderiez-vous PLAIZZ à l'un de vos proches ? *</label>
-            <div class="pz-options">
-              <label class="pz-radio"><input type="radio" name="q15" value="Oui"> Oui</label>
-              <label class="pz-radio"><input type="radio" name="q15" value="Non"> Non</label>
-            </div>
-          </div>
-          <div class="pz-nav">
-            <button class="pz-back" onclick="pzBack(15)">← Retour</button>
-            <button class="pz-next" onclick="pzNext(15)">Continuer →</button>
-          </div>
-        </div>
-
-        <div class="pz-step" id="pzStep16">
-          <div class="pz-field">
-            <label>Q16. Sur une échelle de 1 à 5, quelle est votre probabilité d'acheter PLAIZZ ? *</label>
+            <label>Q15. Sur une échelle de 1 à 5, quelle est votre probabilité d'acheter PLAIZZ ? *</label>
             <div class="pz-scale">
               <span class="pz-scale-label">Aucune</span>
               <div class="pz-scale-options">
-                <label class="pz-scale-btn"><input type="radio" name="q16" value="1"><span>1</span></label>
-                <label class="pz-scale-btn"><input type="radio" name="q16" value="2"><span>2</span></label>
-                <label class="pz-scale-btn"><input type="radio" name="q16" value="3"><span>3</span></label>
-                <label class="pz-scale-btn"><input type="radio" name="q16" value="4"><span>4</span></label>
-                <label class="pz-scale-btn"><input type="radio" name="q16" value="5"><span>5</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q15" value="1"><span>1</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q15" value="2"><span>2</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q15" value="3"><span>3</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q15" value="4"><span>4</span></label>
+                <label class="pz-scale-btn"><input type="radio" name="q15" value="5"><span>5</span></label>
               </div>
               <span class="pz-scale-label">J'ACHÈTE !</span>
             </div>
           </div>
           <div class="pz-nav">
-            <button class="pz-back" onclick="pzBack(16)">← Retour</button>
+            <button class="pz-back" onclick="pzBack(15)">← Retour</button>
             <button class="pz-next" onclick="pzSubmit()">Envoyer mes réponses 🍬</button>
           </div>
         </div>
@@ -1434,20 +1434,19 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
 
     /* ─── LOGIQUE DE NAVIGATION ──────────────────────────
-       Parcours NORMAL  (Q3 = Oui) : 0→1→2→3→4→5→6→7→8→9→11→12→13→14→15→16→success
-       Parcours COURT   (Q3 = Non) : 0→1→2→3→7→8→9→11→12→13→14→15→16→success
-       (Q4, Q5, Q6 sont sautées si Q3=Non — Q10 supprimée)
+       Parcours NORMAL  (Q3 = Oui) : 0→1→2→3→4→5→6→7→8→9→10→11→12→13→14→15→success
+       Parcours COURT   (Q3 = Non) : 0→1→2→3→7→8→9→10→11→12→13→14→15→success
+       (Q4, Q5, Q6 sautées si Q3=Non)
     ─────────────────────────────────────────────────────── */
     const TOTAL_PARTS = 5;
     const PART_LABELS = ['Votre profil', 'Habitudes de consommation', 'Les bonbons sains', 'Test du concept PLAIZZ', 'Verdict final'];
 
-    // Map step → partie (pour la barre de progression)
     function stepToPart(s) {
       if (s <= 0)  return 0;
       if (s <= 2)  return 0; // Partie 1
       if (s <= 6)  return 1; // Partie 2
       if (s <= 8)  return 2; // Partie 3
-      if (s <= 14) return 3; // Partie 4
+      if (s <= 13) return 3; // Partie 4
       return 4;              // Partie 5
     }
 
@@ -1455,18 +1454,13 @@
       document.querySelectorAll('.pz-step').forEach(s => s.classList.remove('active'));
       const step = document.getElementById('pzStep' + n);
       if (step) step.classList.add('active');
-
-      // Mise à jour barre de progression
       const part = stepToPart(n);
       for (let i = 0; i < TOTAL_PARTS; i++) {
         const d = document.getElementById('pd' + i);
         if (d) d.className = 'pz-dot' + (i <= part ? ' done' : '');
       }
-      // Label partie
       const lbl = document.getElementById('pzPartLabel');
       if (lbl) lbl.textContent = PART_LABELS[part] || '';
-
-      // Scroll haut de la popup
       const box = document.getElementById('popupBox');
       if (box) box.scrollTop = 0;
     }
@@ -1477,7 +1471,6 @@
     }
 
     function pzNext(cur) {
-      // ── Validations obligatoires ──
       const required = {
         0:  () => { const v = document.getElementById('pz-email').value.trim(); return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); },
         1:  () => !!document.querySelector('input[name="q1"]:checked'),
@@ -1485,17 +1478,16 @@
         3:  () => !!document.querySelector('input[name="q3"]:checked'),
         7:  () => !!document.querySelector('input[name="q7"]:checked'),
         8:  () => !!document.querySelector('input[name="q8"]:checked'),
+        10: () => !!document.querySelector('input[name="q10"]:checked'),
         11: () => !!document.querySelector('input[name="q11"]:checked'),
-        12: () => !!document.querySelector('input[name="q12"]:checked'),
+        13: () => !!document.querySelector('input[name="q13"]:checked'),
         14: () => !!document.querySelector('input[name="q14"]:checked'),
         15: () => !!document.querySelector('input[name="q15"]:checked'),
-        16: () => !!document.querySelector('input[name="q16"]:checked'),
       };
 
       if (required[cur] && !required[cur]()) {
         const step = document.getElementById('pzStep' + cur);
         if (step) {
-          step.style.animation = 'none';
           step.style.outline = '2px solid #e84048';
           step.style.borderRadius = '8px';
           setTimeout(() => { step.style.outline = ''; }, 1200);
@@ -1503,32 +1495,15 @@
         return;
       }
 
-      // ── Logique conditionnelle Q3 ──
-      if (cur === 3 && !q3isOui()) {
-        pzShowStep(7);
-        return;
-      }
+      // Si Q3=Non → sauter Q4, Q5, Q6 et aller à Q7
+      if (cur === 3 && !q3isOui()) { pzShowStep(7); return; }
 
-      // Q10 supprimée → de Q9 on saute à Q11
-      if (cur === 9) {
-        pzShowStep(11);
-        return;
-      }
-
-      // Navigation normale
       pzShowStep(cur + 1);
     }
 
     function pzBack(cur) {
-      if (cur === 7 && !q3isOui()) {
-        pzShowStep(3);
-        return;
-      }
-      // Q10 supprimée → de Q11 on revient à Q9
-      if (cur === 11) {
-        pzShowStep(9);
-        return;
-      }
+      // Si on est à Q7 et Q3=Non → retour à Q3
+      if (cur === 7 && !q3isOui()) { pzShowStep(3); return; }
       pzShowStep(cur - 1);
     }
 
@@ -1543,51 +1518,46 @@
     }
 
     async function pzSubmit() {
-      // Validation Q16
-      if (!document.querySelector('input[name="q16"]:checked')) {
-        const step = document.getElementById('pzStep16');
+      if (!document.querySelector('input[name="q15"]:checked')) {
+        const step = document.getElementById('pzStep15');
         if (step) { step.style.outline = '2px solid #e84048'; setTimeout(() => step.style.outline = '', 1200); }
         return;
       }
 
-      const q2val = getChecked('q2') + (getOther('q2-other') ? ' — ' + getOther('q2-other') : '');
-      const q4val = getChecked('q4') + (getOther('q4-other') ? ' — ' + getOther('q4-other') : '');
-      const q5val = getChecked('q5') + (getOther('q5-other') ? ' — ' + getOther('q5-other') : '');
-      const q7val = getChecked('q7') + (getOther('q7-other') ? ' — ' + getOther('q7-other') : '');
-      const q8val = getChecked('q8') + (getOther('q8-other') ? ' — ' + getOther('q8-other') : '');
-      const q14val = getChecked('q14') + (getOther('q14-other') ? ' — ' + getOther('q14-other') : '');
+      const q2val  = getChecked('q2')  + (getOther('q2-other')  ? ' — ' + getOther('q2-other')  : '');
+      const q4val  = getChecked('q4')  + (getOther('q4-other')  ? ' — ' + getOther('q4-other')  : '');
+      const q5val  = getChecked('q5')  + (getOther('q5-other')  ? ' — ' + getOther('q5-other')  : '');
+      const q7val  = getChecked('q7')  + (getOther('q7-other')  ? ' — ' + getOther('q7-other')  : '');
+      const q8val  = getChecked('q8')  + (getOther('q8-other')  ? ' — ' + getOther('q8-other')  : '');
+      const q13val = getChecked('q13') + (getOther('q13-other') ? ' — ' + getOther('q13-other') : '');
 
       const params = new URLSearchParams({
-        action:  'survey',
-        sheet:   'Questionnaire',   // ← onglet dédié dans Google Sheets
-        email:   document.getElementById('pz-email').value.trim(),
-        q1:      getChecked('q1'),
-        q2:      q2val,
-        q3:      getChecked('q3'),
-        q4:      q4val,
-        q5:      q5val,
-        q6:      getChecked('q6'),
-        q7:      q7val,
-        q8:      q8val,
-        q9:      (document.getElementById('pz-q9') || {}).value || '',
-        q10:     getChecked('q10'),
-        q11:     getChecked('q11'),
-        q12:     getChecked('q12'),
-        q13:     (document.getElementById('pz-q13') || {}).value || '',
-        q14:     q14val,
-        q15:     getChecked('q15'),
-        q16:     getChecked('q16'),
+        action: 'survey',
+        sheet:  'Questionnaire',
+        email:  document.getElementById('pz-email').value.trim(),
+        q1:     getChecked('q1'),
+        q2:     q2val,
+        q3:     getChecked('q3'),
+        q4:     q4val,
+        q5:     q5val,
+        q6:     getChecked('q6'),
+        q7:     q7val,
+        q8:     q8val,
+        q9:     (document.getElementById('pz-q9')  || {}).value || '',
+        q10:    getChecked('q10'),
+        q11:    getChecked('q11'),
+        q12:    (document.getElementById('pz-q12') || {}).value || '',
+        q13:    q13val,
+        q14:    getChecked('q14'),
+        q15:    getChecked('q15'),
       });
 
       try {
-        await fetch(APPS_SCRIPT_URL + '?' + params.toString(), {
-          method: 'GET', mode: 'no-cors'
-        });
+        await fetch(APPS_SCRIPT_URL + '?' + params.toString(), { method: 'GET', mode: 'no-cors' });
       } catch(err) {
         console.warn('[PLAIZZ] Erreur envoi questionnaire:', err);
       }
 
-      // Affiche succès
       document.querySelectorAll('.pz-step').forEach(s => s.classList.remove('active'));
       document.getElementById('pzSuccess').classList.add('active');
       for (let i = 0; i < TOTAL_PARTS; i++) {
