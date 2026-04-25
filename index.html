@@ -1114,22 +1114,6 @@
           </div>
         </div>
 
-        <div class="pz-step" id="pzStep10">
-          <div class="pz-field">
-            <label>Q10. Que pensez-vous de ce concept ? *</label>
-            <div class="pz-options">
-              <label class="pz-radio"><input type="radio" name="q10" value="Très attractif"> Très attractif</label>
-              <label class="pz-radio"><input type="radio" name="q10" value="Plutôt attractif"> Plutôt attractif</label>
-              <label class="pz-radio"><input type="radio" name="q10" value="Peu attractif"> Peu attractif</label>
-              <label class="pz-radio"><input type="radio" name="q10" value="Pas du tout attractif"> Pas du tout attractif</label>
-            </div>
-          </div>
-          <div class="pz-nav">
-            <button class="pz-back" onclick="pzBack(10)">← Retour</button>
-            <button class="pz-next" onclick="pzNext(10)">Continuer →</button>
-          </div>
-        </div>
-
         <div class="pz-step" id="pzStep11">
           <div class="pz-field">
             <label>Q11. Sur quels critères achèteriez-vous un bonbon PLAIZZ ? * (plusieurs réponses possibles)</label>
@@ -1450,9 +1434,9 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
 
     /* ─── LOGIQUE DE NAVIGATION ──────────────────────────
-       Parcours NORMAL  (Q3 = Oui) : 0→1→2→3→4→5→6→7→8→9→10→11→12→13→14→15→16→success
-       Parcours COURT   (Q3 = Non) : 0→1→2→3→7→8→9→10→11→12→13→14→15→16→success
-       (Q4, Q5, Q6 sont sautées si Q3=Non)
+       Parcours NORMAL  (Q3 = Oui) : 0→1→2→3→4→5→6→7→8→9→11→12→13→14→15→16→success
+       Parcours COURT   (Q3 = Non) : 0→1→2→3→7→8→9→11→12→13→14→15→16→success
+       (Q4, Q5, Q6 sont sautées si Q3=Non — Q10 supprimée)
     ─────────────────────────────────────────────────────── */
     const TOTAL_PARTS = 5;
     const PART_LABELS = ['Votre profil', 'Habitudes de consommation', 'Les bonbons sains', 'Test du concept PLAIZZ', 'Verdict final'];
@@ -1501,7 +1485,6 @@
         3:  () => !!document.querySelector('input[name="q3"]:checked'),
         7:  () => !!document.querySelector('input[name="q7"]:checked'),
         8:  () => !!document.querySelector('input[name="q8"]:checked'),
-        10: () => !!document.querySelector('input[name="q10"]:checked'),
         11: () => !!document.querySelector('input[name="q11"]:checked'),
         12: () => !!document.querySelector('input[name="q12"]:checked'),
         14: () => !!document.querySelector('input[name="q14"]:checked'),
@@ -1510,7 +1493,6 @@
       };
 
       if (required[cur] && !required[cur]()) {
-        // Secousse visuelle sur le step courant
         const step = document.getElementById('pzStep' + cur);
         if (step) {
           step.style.animation = 'none';
@@ -1522,9 +1504,14 @@
       }
 
       // ── Logique conditionnelle Q3 ──
-      // Si Q3=Non → sauter Q4 (step4), Q5 (step5), Q6 (step6)
       if (cur === 3 && !q3isOui()) {
-        pzShowStep(7); // saute directement à Q7
+        pzShowStep(7);
+        return;
+      }
+
+      // Q10 supprimée → de Q9 on saute à Q11
+      if (cur === 9) {
+        pzShowStep(11);
         return;
       }
 
@@ -1533,9 +1520,13 @@
     }
 
     function pzBack(cur) {
-      // Si on est à Q7 et Q3=Non → retour à Q3 (step3)
       if (cur === 7 && !q3isOui()) {
         pzShowStep(3);
+        return;
+      }
+      // Q10 supprimée → de Q11 on revient à Q9
+      if (cur === 11) {
+        pzShowStep(9);
         return;
       }
       pzShowStep(cur - 1);
